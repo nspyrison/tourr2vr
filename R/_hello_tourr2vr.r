@@ -55,7 +55,6 @@ my_scene <- a_scene(template = "empty",
 )
 
 my_scene$serve() #Fire started at 127.0.0.1:8080
-# doesn't work with  browseURL("127.0.0.1:8080")...
 writeClipboard("127.0.0.1:8080")
 browseURL("https://google.com/")
 

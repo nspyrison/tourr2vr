@@ -12,9 +12,9 @@
   # One of Mile's McBain's GH vignettes.
 ### Using a community component
 browseURL("https://github.com/MilesMcBain/r2vr/blob/master/vignettes/vr_scatterplot.Rmd")
-library(r2vr)
-library(jsonlite)
-require(ggplot2) # for dimaonds dataset. package also qualified below.
+library("r2vr")
+library("jsonlite")
+require("ggplot2") # for dimaonds dataset. package also qualified below.
 
 a_scatterplot <- function(json_data, x, y, z, ...){
 
@@ -53,16 +53,17 @@ my_scene <- a_scene(template = "empty",
                       a_pc_control_camera()))
 
 my_scene$serve() #Fire started at 127.0.0.1:8080
-# doesn't work with  browseURL("127.0.0.1:8080")...
+writeClipboard("127.0.0.1:8080")
+browseURL("https://google.com/")
 
 my_scene$stop()
 message("End of part 1: Using a community component. Part 2 starts at ~ line 61.")
 
 ### Part 2:
 ### A Scattleplot from scratch using HTML entities
-library(r2vr)
-require(purrr)  # also qualified below.
-require(tibble) # also qualified below.
+library("r2vr")
+require("purrr")  # also qualified below.
+require("tibble") # also qualified below.
 
 a_scatter_ents <- function(x, y, z, colour = rep(1, length(x)), palette_fn = rainbow, sizes = rep(0.1, length(x)), labels, dimensions = c(2,2,2), ...){
 
@@ -210,9 +211,12 @@ my_scene <- a_scatter_ents(
   labels = row.names(mtcars),
   dimensions = c(3,3,3))
 
-my_scene$serve()
 #my_scene$serve("127.0.0.2:8080")
 #127.0.0.2:8080 is not a valid IPv4 or IPv6 address.
+
+my_scene$serve() #Fire started at 127.0.0.1:8080
+writeClipboard("127.0.0.1:8080")
+browseURL("https://google.com/")
 
 my_scene$stop()
 message("End of part 2: A Scattleplot from scratch using HTML entities. End of vignette")

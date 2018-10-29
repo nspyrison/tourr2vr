@@ -2,8 +2,7 @@
 
 #devtools::install_github("milesmcbain/r2vr",    dependencies = TRUE)
 #browseURL("https://github.com/MilesMcBain/r2vr")
-#devtools::install_github("aframevr/aframe",     dependencies = TRUE)
-#not an R package. #browseURL("https://github.com/aframevr/aframe")
+#aframe is not an R package. #browseURL("https://github.com/aframevr/aframe")
 
 #browseURL("https://github.com/MilesMcBain/r2vr/tree/master/vignettes")
   # Miles McBain's GH vignettes
@@ -11,13 +10,12 @@
 ##### vr_scatterplot #####
   # One of Mile's McBain's GH vignettes.
 ### Using a community component
-browseURL("https://github.com/MilesMcBain/r2vr/blob/master/vignettes/vr_scatterplot.Rmd")
+#browseURL("https://github.com/MilesMcBain/r2vr/blob/master/vignettes/vr_scatterplot.Rmd")
 library("r2vr")
 library("jsonlite")
-require("ggplot2") # for dimaonds dataset. package also qualified below.
+library("ggplot2") # for dimaonds dataset. package also qualified below.
 
 a_scatterplot <- function(json_data, x, y, z, ...){
-
   ## js sources for scatterplot
   .scatter_source <- "https://cdn.rawgit.com/zcanter/aframe-scatterplot/master/dist/a-scatterplot.min.js"
   .d3_source <- "https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.1/d3.min.js"
@@ -39,18 +37,17 @@ a_scatterplot <- function(json_data, x, y, z, ...){
 
 diamonds_json <- jsonlite::toJSON(ggplot2::diamonds)
 
-my_scene <- a_scene(template = "empty",
-                    children = list(
-                      a_scatterplot(diamonds_json, x = "depth", y = "carat", z = "table",
-                                    val = "price",
-                                    xlabel = "depth", ylabel = "carat", zlabel = "table",
-                                    showFloor = TRUE,
-                                    ycage = TRUE,
-                                    title = "Price of Diamond$$$",
-                                    pointsize = "10",
-                                    position = c(0, 0, -2),
-                                    scale = c(3,3,3)),
-                      a_pc_control_camera()))
+my_scene <- a_scene(
+  template = "empty", children = list(
+    a_scatterplot(json_data = diamonds_json,
+                  x = "depth", y = "carat", z = "table",
+                  xlabel = "depth", ylabel = "carat", zlabel = "table",
+                  val = "price", title = "Price of Diamond [$USD]",
+                  showFloor = TRUE, ycage = TRUE,
+                  pointsize = "10",
+                  position = c(0, 0, -2),
+                  scale = c(3,3,3)),
+    a_pc_control_camera()))
 
 my_scene$serve() #Fire started at 127.0.0.1:8080
 writeClipboard("127.0.0.1:8080")

@@ -32,3 +32,17 @@ dat   <- data.frame(f.pca$x, "SpeciesInt" = as.integer(as.factor(tourr::flea[,7]
 
 write.csv(dat,   file = "../../Unity/IATK/Assets/Datasets/r_output/flea_pca.csv")
 write.csv(basis, file = "../../Unity/IATK/Assets/Datasets/r_output/flea_basis.csv")
+
+###
+
+# Round 3: Export manip_space. 2/01/2019.
+
+library(spinifex)
+?create_manip_space
+
+flea_std <- tourr::rescale(tourr::flea[,1:6])
+rb <- tourr::basis_random(n = ncol(flea_std))
+manip_sp <- create_manip_space(basis = rb, manip_var = 4)
+
+write.csv(dat,      row.names=FALSE, file = "../../Unity/IATK/Assets/Datasets/r_output/flea_std.csv")
+write.csv(manip_sp, row.names=FALSE, file = "../../Unity/IATK/Assets/Datasets/r_output/flea_manip_sp.csv")
